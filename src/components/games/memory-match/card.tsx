@@ -29,8 +29,8 @@ export function Card({
   // Determine emoji size based on board size
   const getEmojiSize = () => {
     switch (boardSize) {
-      case '4x4': return 'text-6xl sm:text-7xl';
-      case '6x6': return 'text-4xl sm:text-5xl';
+      case '4x4': return 'text-2xl sm:text-3xl';
+      case '6x6': return 'text-2xl sm:text-3xl';
       case '8x8': return 'text-2xl sm:text-3xl';
       default: return 'text-5xl';
     }
@@ -39,8 +39,8 @@ export function Card({
   // Get card size class based on board size
   const getCardSizeClass = () => {
     switch (boardSize) {
-      case '4x4': return 'max-w-[70px] sm:max-w-[80px]';
-      case '6x6': return 'max-w-[60px] sm:max-w-[70px]';
+      case '4x4': return 'max-w-none';
+      case '6x6': return 'max-w-none';
       case '8x8': return 'max-w-none'; // Default - full width
       default: return 'max-w-[75px] sm:max-w-[85px]';
     }
