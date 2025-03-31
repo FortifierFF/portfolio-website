@@ -121,6 +121,19 @@
     }
 }
 
+/* 2048 Game Styles */
+@layer utilities {
+    /* Tile animation transitions */
+    .tile-transition {
+        transition: all 0.2s ease-in-out;
+    }
+
+    /* Mobile touch support */
+    .touch-none {
+        touch-action: none;
+    }
+}
+
 /* 3D Card Flip Effects */
 @layer utilities {
     .preserve-3d {
@@ -155,5 +168,18 @@
         display: flex;
         align-items: center;
         justify-content: center;
+    }
+}
+
+/* 2048 Game Styles */
+@layer utilities {
+    /* Tile animation transitions */
+    .tile-transition {
+        transition: all 0.2s ease-in-out;
+    }
+
+    /* Mobile touch support */
+    .touch-none {
+        touch-action: none;
     }
 }
