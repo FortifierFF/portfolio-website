@@ -183,3 +183,114 @@
         touch-action: none;
     }
 }
+
+/* Color Guess Game Styles */
+@keyframes colorPulse {
+    0% {
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+    }
+    100% {
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+    }
+}
+
+.color-option {
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+
+.color-option:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+}
+
+.color-option.selected {
+    border: 2px solid white;
+    animation: colorPulse 2s infinite;
+}
+
+.color-slider {
+    appearance: none;
+    height: 12px;
+    border-radius: 10px;
+    outline: none;
+    transition: all 0.2s;
+}
+
+.color-slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: white;
+    cursor: pointer;
+    border: 2px solid rgba(0, 0, 0, 0.3);
+    transition: all 0.2s;
+}
+
+.color-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+}
+
+.color-slider.red {
+    background: linear-gradient(to right, #300, #f00);
+}
+
+.color-slider.green {
+    background: linear-gradient(to right, #030, #0f0);
+}
+
+.color-slider.blue {
+    background: linear-gradient(to right, #003, #00f);
+}
+
+.color-slider.red::-webkit-slider-thumb {
+    background: rgb(var(--r-value, 128), 0, 0);
+}
+
+.color-slider.green::-webkit-slider-thumb {
+    background: rgb(0, var(--g-value, 128), 0);
+}
+
+.color-slider.blue::-webkit-slider-thumb {
+    background: rgb(0, 0, var(--b-value, 128));
+}
+
+@keyframes correctAnswer {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.feedback-correct {
+    animation: correctAnswer 0.5s ease;
+}
+
+@keyframes wrongAnswer {
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+    20%,
+    60% {
+        transform: translateX(-5px);
+    }
+    40%,
+    80% {
+        transform: translateX(5px);
+    }
+}
+
+.feedback-wrong {
+    animation: wrongAnswer 0.5s ease;
+}
