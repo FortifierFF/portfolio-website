@@ -2,17 +2,18 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { navSections, getSectionOffsets, getActiveSectionId } from '@/lib/navigation';
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  const pathname = usePathname();
+  const isHomePage = pathname === '/';
 
   // Handle scroll event to change navbar background and track active section
   useEffect(() => {
-    const sectionOffsets = getSectionOffsets();
-    
     const handleScroll = () => {
       // Change navbar background when scrolled
       if (window.scrollY > 50) {
@@ -21,29 +22,47 @@ export function Navbar() {
         setIsScrolled(false);
       }
 
-      // Update active section based on scroll position
-      const newActiveSection = getActiveSectionId(sectionOffsets, window.scrollY);
-      setActiveSection(newActiveSection);
+      // Only update active section on home page
+      if (isHomePage) {
+        const sectionOffsets = getSectionOffsets();
+        const newActiveSection = getActiveSectionId(sectionOffsets, window.scrollY);
+        setActiveSection(newActiveSection);
+      }
     };
 
     // Initial call to set correct active section on mount
-    handleScroll();
+    if (isHomePage) {
+      // Delay to ensure DOM elements are rendered
+      setTimeout(() => {
+        const sectionOffsets = getSectionOffsets();
+        const newActiveSection = getActiveSectionId(sectionOffsets, window.scrollY);
+        setActiveSection(newActiveSection);
+      }, 100);
+    }
     
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isHomePage]);
 
   // Common styles for nav links
   const baseNavLinkStyles = "px-3 py-2 text-sm font-medium transition-colors";
   const activeLinkStyles = "text-blue-400";
   const inactiveLinkStyles = "text-gray-300 hover:text-white";
   
-  // Link data for better maintainability
-  const navLinks = navSections.map(section => ({
-    id: section.id,
-    href: section.id === 'home' ? '/' : `#${section.id}`,
-    label: section.label
-  }));
+  // Generate links with proper paths
+  const navLinks = navSections.map(section => {
+    const href = section.id === 'home' 
+      ? '/' 
+      : isHomePage 
+        ? `#${section.id}` 
+        : `/#${section.id}`;
+        
+    return {
+      id: section.id,
+      href,
+      label: section.label
+    };
+  });
 
   return (
     <nav
