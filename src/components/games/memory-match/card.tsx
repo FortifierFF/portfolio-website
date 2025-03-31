@@ -29,15 +29,25 @@ export function Card({
   // Determine emoji size based on board size
   const getEmojiSize = () => {
     switch (boardSize) {
-      case '4x4': return 'text-5xl';
-      case '6x6': return 'text-3xl';
-      case '8x8': return 'text-2xl';
-      default: return 'text-4xl';
+      case '4x4': return 'text-6xl sm:text-7xl';
+      case '6x6': return 'text-4xl sm:text-5xl';
+      case '8x8': return 'text-2xl sm:text-3xl';
+      default: return 'text-5xl';
+    }
+  };
+
+  // Get card size class based on board size
+  const getCardSizeClass = () => {
+    switch (boardSize) {
+      case '4x4': return 'max-w-[70px] sm:max-w-[80px]';
+      case '6x6': return 'max-w-[60px] sm:max-w-[70px]';
+      case '8x8': return 'max-w-none'; // Default - full width
+      default: return 'max-w-[75px] sm:max-w-[85px]';
     }
   };
 
   return (
-    <div className="relative aspect-square">
+    <div className={cn("relative aspect-square mx-auto w-full", getCardSizeClass())}>
       <motion.div
         className="w-full h-full relative preserve-3d cursor-pointer"
         onClick={!disabled ? onClick : undefined}
@@ -62,9 +72,15 @@ export function Card({
             "border-blue-800 shadow-lg"
           )}
         >
-          <span className={getEmojiSize()} role="img" aria-label="card emoji">
-            {emoji}
-          </span>
+          <div className="emoji-container">
+            <span 
+              className={cn("card-emoji", getEmojiSize())} 
+              role="img" 
+              aria-label="card emoji"
+            >
+              {emoji}
+            </span>
+          </div>
         </div>
       </motion.div>
     </div>

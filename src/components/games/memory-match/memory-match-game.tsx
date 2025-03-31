@@ -95,7 +95,7 @@ export function MemoryMatchGame() {
       )}
 
       {/* Game board */}
-      <div className={`grid ${getGridCols(boardSize)} gap-2 w-full max-w-3xl mx-auto`}>
+      <div className={`grid ${getGridCols(boardSize)} ${boardSize === '8x8' ? 'gap-1' : 'gap-2'} w-full mx-auto justify-center`}>
         {cards.map((card: CardData, index: number) => (
           <Card
             key={index}
