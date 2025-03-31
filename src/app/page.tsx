@@ -35,7 +35,7 @@ const games = [
   {
     title: 'Memory Match',
     description: 'Test your memory by matching pairs of cards in this classic game.',
-    link: '#memory-match'
+    link: '/games/memory-match'
   },
   {
     title: 'Word Puzzle',
