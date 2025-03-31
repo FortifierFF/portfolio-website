@@ -43,6 +43,11 @@ const games = [
     link: '/games/2048'
   },
   {
+    title: 'Color Guess',
+    description: 'Test your knowledge of colors and RGB values in this challenging game.',
+    link: '/games/color-guess'
+  },
+  {
     title: 'Math Challenge',
     description: 'Solve math problems against the clock to improve your mental math.',
     link: '/games/math-challenge'
