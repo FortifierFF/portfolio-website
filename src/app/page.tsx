@@ -43,14 +43,14 @@ const games = [
     link: '/games/2048'
   },
   {
+    title: 'Math Challenge',
+    description: 'Solve math problems against the clock to improve your mental math.',
+    link: '/games/math-challenge'
+  },
+  {
     title: 'Word Puzzle',
     description: 'Rearrange letters to form words and test your vocabulary skills.',
     link: '#word-puzzle'
-  },
-  {
-    title: 'Math Challenge',
-    description: 'Solve math problems against the clock to improve your mental math.',
-    link: '#math-challenge'
   }
 ];
 
