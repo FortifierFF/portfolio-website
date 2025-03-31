@@ -35,7 +35,12 @@ const games = [
   {
     title: 'Memory Match',
     description: 'Test your memory by matching pairs of cards in this classic game.',
-    link: '#memory-match'
+    link: '/games/memory-match'
+  },
+  {
+    title: '2048',
+    description: 'Combine tiles to reach 2048 in this addictive puzzle game.',
+    link: '/games/2048'
   },
   {
     title: 'Word Puzzle',
@@ -46,11 +51,6 @@ const games = [
     title: 'Math Challenge',
     description: 'Solve math problems against the clock to improve your mental math.',
     link: '#math-challenge'
-  },
-  {
-    title: 'Color Guess',
-    description: 'Identify the correct color from a provided RGB or HEX value.',
-    link: '#color-guess'
   }
 ];
 
