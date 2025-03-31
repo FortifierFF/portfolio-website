@@ -38,6 +38,11 @@ const games = [
     link: '/games/memory-match'
   },
   {
+    title: '2048',
+    description: 'Combine tiles to reach 2048 in this addictive puzzle game.',
+    link: '/games/2048'
+  },
+  {
     title: 'Word Puzzle',
     description: 'Rearrange letters to form words and test your vocabulary skills.',
     link: '#word-puzzle'
