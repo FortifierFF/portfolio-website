@@ -23,6 +23,8 @@ export function useGameState() {
   const [gameCompleted, setGameCompleted] = useState(false);
   const [secondsElapsed, setSecondsElapsed] = useState(0);
   const [gameStarted, setGameStarted] = useState(false);
+  const [totalPairs, setTotalPairs] = useState(0);
+  const [foundPairs, setFoundPairs] = useState(0);
 
   // Initialize/reset the game
   const resetGame = useCallback(() => {
@@ -41,6 +43,8 @@ export function useGameState() {
     setGameCompleted(false);
     setSecondsElapsed(0);
     setGameStarted(false);
+    setTotalPairs(8); // 8 pairs of cards
+    setFoundPairs(0);
   }, []);
 
   // Initialize game on first render
@@ -65,10 +69,11 @@ export function useGameState() {
 
   // Check if game is completed
   useEffect(() => {
-    if (matchedIndexes.length === cards.length && cards.length > 0) {
+    // Check if all pairs have been found
+    if (foundPairs === totalPairs && totalPairs > 0) {
       setGameCompleted(true);
     }
-  }, [matchedIndexes.length, cards.length]);
+  }, [foundPairs, totalPairs]);
 
   // Handle card click logic
   const handleCardClick = (index: number) => {
@@ -97,6 +102,7 @@ export function useGameState() {
       if (cards[firstCardIndex].emoji === cards[secondCardIndex].emoji) {
         setMatchedIndexes(prev => [...prev, firstCardIndex, secondCardIndex]);
         setFlippedIndexes([]);
+        setFoundPairs(prev => prev + 1);
       } else {
         // If cards don't match, flip them back after a delay
         setTimeout(() => {

@@ -1,6 +1,5 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import { Card } from './card';
 import { useGameState } from './use-game-state';
 import { Button } from '@/components/ui/button';
@@ -18,7 +17,7 @@ export function MemoryMatchGame() {
   } = useGameState();
 
   return (
-    <div className="flex flex-col items-center w-full max-w-3xl mx-auto">
+    <div className="flex flex-col items-center w-full max-w-2xl mx-auto">
       <div className="w-full mb-6 flex justify-between items-center">
         <div className="flex space-x-4">
           <div className="bg-gray-800 px-4 py-2 rounded-md shadow-inner">
@@ -46,8 +45,8 @@ export function MemoryMatchGame() {
       )}
 
       {/* Game board */}
-      <div className="grid grid-cols-4 gap-4 w-full">
-        {cards.map((card, index) => (
+      <div className="grid grid-cols-4 gap-2 w-full max-w-md mx-auto">
+        {cards.map((card, index: number) => (
           <Card
             key={index}
             emoji={card.emoji}

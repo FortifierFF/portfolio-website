@@ -10,6 +10,13 @@ interface CardProps {
 }
 
 export function Card({ emoji, isFlipped, isMatched, onClick, disabled }: CardProps) {
+  // If card is matched, don't render it
+  if (isMatched) {
+    return (
+      <div className="relative aspect-square bg-transparent"></div>
+    );
+  }
+
   return (
     <div className="relative aspect-square">
       <motion.div
@@ -22,8 +29,8 @@ export function Card({ emoji, isFlipped, isMatched, onClick, disabled }: CardPro
         <div
           className={cn(
             "absolute w-full h-full rounded-lg backface-hidden flex items-center justify-center bg-gray-800 border-2",
-            isMatched ? "border-green-500" : "border-blue-800",
-            !disabled && !isFlipped ? "hover:border-blue-600" : ""
+            !disabled && !isFlipped ? "hover:border-blue-600" : "",
+            "border-blue-800 shadow-md"
           )}
         >
           <span className="text-2xl text-gray-600">?</span>
@@ -33,10 +40,10 @@ export function Card({ emoji, isFlipped, isMatched, onClick, disabled }: CardPro
         <div
           className={cn(
             "absolute w-full h-full rounded-lg backface-hidden flex items-center justify-center bg-gray-900 border-2 rotateY-180",
-            isMatched ? "border-green-500" : "border-blue-800"
+            "border-blue-800 shadow-lg"
           )}
         >
-          <span className="text-4xl" role="img" aria-label="card emoji">
+          <span className="text-5xl" role="img" aria-label="card emoji">
             {emoji}
           </span>
         </div>
