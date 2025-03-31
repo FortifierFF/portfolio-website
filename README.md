@@ -1,94 +1,60 @@
-# Next.js Tech Stack Demo
+# Lyusien Nistorov - Portfolio Website
 
-A clean and modern Next.js application with a comprehensive tech stack.
-
-## Tech Stack
-
--   **Next.js 15+** - React framework with app router
--   **TypeScript** - Type-safe code
--   **Tailwind CSS** - Utility-first CSS framework
--   **shadcn/ui** - Accessible UI components
--   **Zod** - Schema validation
--   **Axios** - HTTP client
+A modern, responsive portfolio website for Lyusien Nistorov, showcasing front-end development skills, Web3 expertise, and game development projects.
 
 ## Features
 
--   Form validation with Zod
--   UI components from shadcn/ui
--   Type safety with TypeScript
--   Modern styling with Tailwind CSS
--   API requests with Axios (example included)
+-   Clean, professional design with dark theme
+-   Responsive layout that works on all devices
+-   Modern UI with smooth animations
+-   Sections for showcasing projects, skills, and contact information
+-   Built with accessibility in mind
+
+## Tech Stack
+
+-   **Next.js** - React framework
+-   **TypeScript** - Type safety
+-   **Tailwind CSS** - Utility-first styling
+-   **Shadcn UI** - Accessible UI components
 
 ## Getting Started
 
-### Prerequisites
+1. Clone the repository
 
--   Node.js 18.17 or later
-
-### Installation
-
-1. Clone this repository
-2. Navigate to the project directory
-    ```bash
-    cd nextjs-app
     ```
-3. Install dependencies
-    ```bash
+    git clone <repository-url>
+    ```
+
+2. Install dependencies
+
+    ```
     npm install
     ```
 
-### Development
+3. Run the development server
 
-Run the development server:
+    ```
+    npm run dev
+    ```
 
-```bash
-npm run dev
-```
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+## Customization
 
-### Building for Production
+This portfolio showcases:
 
-Build the application for production:
+-   Front-end development skills with React, Next.js, and TypeScript
+-   Experience with state management and API integration
+-   Interest in Web3 technologies and blockchain development
+-   Game development using Unreal Engine
+-   Collaborative work experience in Agile environments
 
-```bash
-npm run build
-```
+## Development
 
-Start the production server:
+This project uses:
 
-```bash
-npm start
-```
-
-## Project Structure
-
--   `/src/app` - Next.js app router pages and layouts
--   `/src/components` - Reusable UI components
-    -   `/src/components/ui` - shadcn/ui components
--   `/src/lib` - Utility functions and shared code
-
-## Adding shadcn/ui Components
-
-This project uses shadcn/ui for components. To add a new component:
-
-```bash
-npx shadcn@latest add [component-name]
-```
-
-Example:
-
-```bash
-npx shadcn@latest add input dropdown-menu
-```
-
-## Learn More
-
-To learn more about the technologies used in this project:
-
--   [Next.js Documentation](https://nextjs.org/docs)
--   [TypeScript Documentation](https://www.typescriptlang.org/docs/)
--   [Tailwind CSS Documentation](https://tailwindcss.com/docs)
--   [shadcn/ui Documentation](https://ui.shadcn.com)
--   [Zod Documentation](https://zod.dev)
--   [Axios Documentation](https://axios-http.com/docs/intro)
+-   Modern JavaScript (ES6+) and TypeScript
+-   Component-based architecture
+-   Responsive design principles
+-   Tailwind CSS for styling
+-   Shadcn UI components
