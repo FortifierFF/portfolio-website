@@ -2,15 +2,54 @@
 
 import { useState, useEffect, useCallback } from 'react';
 
-// Card emojis for the game
-const emojis = ['🐶', '🐱', '🐭', '🐹', '🐰', '🦊', '🐻', '🐼', '🦁', '🐯', '🐨', '🐮'];
+// Extended emojis collection for larger boards
+const emojis = [
+  // Animals
+  '🐶', '🐱', '🐭', '🐹', '🐰', '🦊', '🐻', '🐼', '🦁', '🐯', '🐨', '🐮',
+  '🐷', '🐸', '🐵', '🐔', '🐧', '🦆', '🦉', '🦇', '🐝', '🐢', '🦎', '🐙',
+  // Foods
+  '🍎', '🍐', '🍊', '🍋', '🍌', '🍉', '🍇', '🍓', '🍒', '🍑', '🥭', '🍍', 
+  '🥥', '🥝', '🍅', '🥑', '🍆', '🌽', '🌶️', '🍄', '🥐', '🍕', '🍔', '🍟',
+  // Activities
+  '⚽', '🏀', '🏈', '⚾', '🎾', '🏐', '🏉', '🎱', '🏓', '🏸', '🥊', '🎯',
+  '🎮', '🎨', '🎭', '🎪', '🎤', '🎧', '🎸', '🎹', '🎬', '🏆', '🏅', '🎖️',
+];
+
+export type BoardSize = '4x4' | '6x6' | '8x8';
+
+interface GameOptions {
+  boardSize: BoardSize;
+}
 
 interface Card {
   emoji: string;
   id: number;
 }
 
-export function useGameState() {
+// Get number of pairs needed based on board size
+const getPairsCount = (size: BoardSize): number => {
+  switch (size) {
+    case '4x4': return 8;  // 16 cards = 8 pairs
+    case '6x6': return 18; // 36 cards = 18 pairs
+    case '8x8': return 32; // 64 cards = 32 pairs
+    default: return 8;
+  }
+};
+
+// Get grid columns based on board size
+export const getGridCols = (size: BoardSize): string => {
+  switch (size) {
+    case '4x4': return 'grid-cols-4';
+    case '6x6': return 'grid-cols-6';
+    case '8x8': return 'grid-cols-8';
+    default: return 'grid-cols-4';
+  }
+};
+
+export function useGameState(initialOptions: GameOptions = { boardSize: '4x4' }) {
+  // Game options
+  const [options, setOptions] = useState<GameOptions>(initialOptions);
+  
   // Game cards - duplicated to create pairs
   const [cards, setCards] = useState<Card[]>([]);
   
@@ -26,10 +65,18 @@ export function useGameState() {
   const [totalPairs, setTotalPairs] = useState(0);
   const [foundPairs, setFoundPairs] = useState(0);
 
+  // Change difficulty/board size
+  const changeBoardSize = useCallback((size: BoardSize) => {
+    setOptions(prev => ({ ...prev, boardSize: size }));
+    resetGame(size);
+  }, []);
+
   // Initialize/reset the game
-  const resetGame = useCallback(() => {
+  const resetGame = useCallback((boardSize: BoardSize = options.boardSize) => {
+    const pairsCount = getPairsCount(boardSize);
+    
     // Shuffle and create pairs
-    const shuffledPairs = [...emojis.slice(0, 8)]
+    const shuffledPairs = [...emojis.slice(0, pairsCount)]
       .flatMap(emoji => [
         { emoji, id: Math.random() },
         { emoji, id: Math.random() },
@@ -43,9 +90,9 @@ export function useGameState() {
     setGameCompleted(false);
     setSecondsElapsed(0);
     setGameStarted(false);
-    setTotalPairs(8); // 8 pairs of cards
+    setTotalPairs(pairsCount);
     setFoundPairs(0);
-  }, []);
+  }, [options.boardSize]);
 
   // Initialize game on first render
   useEffect(() => {
@@ -121,5 +168,7 @@ export function useGameState() {
     secondsElapsed,
     handleCardClick,
     resetGame,
+    boardSize: options.boardSize,
+    changeBoardSize,
   };
 } 
