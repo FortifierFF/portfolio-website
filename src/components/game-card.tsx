@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { ExternalLink } from "lucide-react";
+import { ChevronRight } from "lucide-react";
+import Link from "next/link";
 
 interface GameCardProps {
   title: string;
@@ -21,11 +22,11 @@ export function GameCard({ title, description, link }: GameCardProps) {
         <p className="text-gray-400 mb-4">
           {description}
         </p>
-        <a href={link} target="_blank" rel="noopener noreferrer">
+        <Link href={link} className="block">
           <Button variant="link" className="text-blue-500 hover:text-blue-400 p-0 flex items-center">
-            Play Now <ExternalLink className="ml-1 h-4 w-4" />
+            Play Now <ChevronRight className="ml-1 h-4 w-4" />
           </Button>
-        </a>
+        </Link>
       </div>
     </div>
   );

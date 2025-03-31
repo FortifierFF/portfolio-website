@@ -43,4 +43,15 @@ export function getSectionOffsets(): Record<string, number> {
   });
   
   return offsets;
+}
+
+// Helper function to navigate to a section on the homepage
+export function scrollToSection(sectionId: string): void {
+  const element = document.getElementById(sectionId);
+  if (element) {
+    window.scrollTo({
+      top: element.offsetTop,
+      behavior: 'smooth'
+    });
+  }
 } 
