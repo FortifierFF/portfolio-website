@@ -164,7 +164,7 @@ export default function Home() {
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Button size="lg" className="bg-blue-600 hover:bg-blue-700">
-              <Link href="#projects">View My Work</Link>
+              <Link href="/projects">View My Work</Link>
             </Button>
             <Button size="lg" variant="outline" className="border-blue-600 text-blue-500 hover:bg-blue-950">
               <Link href="#contact">Contact Me</Link>
