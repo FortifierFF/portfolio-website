@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { ProjectCard } from '@/components/project-card';
 import { GameCard } from '@/components/game-card';
 import { useToast } from '@/components/ui/toast';
-import { Github, Linkedin, FileCode, Copy } from 'lucide-react';
+import { Github, Linkedin, FileCode, Copy, Calendar, Mail } from 'lucide-react';
 
 // Project data
 const projects = [
@@ -310,9 +310,27 @@ export default function Home() {
               I&apos;m currently open to new opportunities and collaborations. Whether you have a project in mind,
               want to discuss emerging technologies, or just want to connect, I&apos;d love to hear from you!
             </p>
-            <div className="flex justify-center">
-              <Button size="lg" className="bg-blue-600 hover:bg-blue-700">
-                <a href="mailto:your.email@example.com">Let&apos;s Connect</a>
+            <div className="flex flex-col sm:flex-row justify-center gap-4">
+              <Button size="lg" className="bg-blue-600 hover:bg-blue-700 flex items-center gap-2">
+                <a 
+                  href="mailto:your.email@example.com"
+                  className="flex items-center gap-2"
+                >
+                  <Mail />
+                  Let&apos;s Connect
+                </a>
+              </Button>
+              
+              <Button size="lg" className="bg-green-600 hover:bg-green-700 flex items-center gap-2">
+                <a 
+                  href="https://calendar.app.google/6mfHRB5qXj4TnZjDA" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2"
+                >
+                  <Calendar />
+                  Book Appointment
+                </a>
               </Button>
             </div>
           </div>
