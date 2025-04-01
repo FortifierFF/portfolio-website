@@ -7,9 +7,14 @@ import { ToastProvider } from "@/components/ui/toast";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Lyusien Nistorov | Portfolio",
-  description: "Front-End Developer, Web3 Enthusiast & Game Developer",
+  title: 'Lyusien Nistorov - Portfolio',
+  description: 'Front-End Developer | Web3 Enthusiast | Game Developer',
   keywords: "front-end developer, react, next.js, web3, portfolio, game development, unreal engine",
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/favicon.ico',
+  },
 };
 
 export default function RootLayout({

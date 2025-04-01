@@ -1,49 +1,59 @@
 // Navigation sections with their IDs and display names
 export const navSections = [
-  { id: "home", label: "Home" },
-  { id: "projects", label: "Projects" },
-  { id: "mini-games", label: "Mini Games" },
-  { id: "skills", label: "Skills" },
-  { id: "contact", label: "Contact" },
+  {
+    id: 'home',
+    label: 'Home',
+    path: '/'
+  },
+  {
+    id: 'projects',
+    label: 'Projects',
+    path: '/projects'
+  },
+  {
+    id: 'mini-games',
+    label: 'Mini Games',
+    path: '/mini-games'
+  },
+  {
+    id: 'skills',
+    label: 'Skills',
+    path: '/skills'
+  },
+  {
+    id: 'contact',
+    label: 'Contact',
+    path: '/#contact' // Keep this as a section link
+  }
 ];
 
-// Function to determine active section based on scroll position
-export function getActiveSectionId(sectionsOffsets: Record<string, number>, scrollY: number): string {
-  // Sort section IDs by their offsets (to handle proper sequence)
-  const sortedSectionIds = Object.keys(sectionsOffsets).sort(
-    (a, b) => sectionsOffsets[a] - sectionsOffsets[b]
-  );
+// Helper function to get section offsets for scroll behavior
+export const getSectionOffsets = () => {
+  const sections = document.querySelectorAll('section[id]');
+  const offsets: { [key: string]: number } = {};
   
-  // Default to home section
-  if (sortedSectionIds.length === 0 || scrollY < 100) {
-    return "home";
-  }
-  
-  // Find the last section that starts before current scroll position
-  for (let i = sortedSectionIds.length - 1; i >= 0; i--) {
-    const sectionId = sortedSectionIds[i];
-    if (sectionsOffsets[sectionId] <= scrollY + 100) { // Adding offset for better UX
-      return sectionId;
-    }
-  }
-  
-  // Fallback to first section
-  return sortedSectionIds[0];
-}
-
-// Get section offsets from DOM
-export function getSectionOffsets(): Record<string, number> {
-  const offsets: Record<string, number> = {};
-  
-  navSections.forEach(({ id }) => {
-    const element = document.getElementById(id);
-    if (element) {
-      offsets[id] = element.offsetTop;
+  sections.forEach(section => {
+    const id = section.getAttribute('id');
+    if (id) {
+      offsets[id] = section.getBoundingClientRect().top + window.scrollY;
     }
   });
   
   return offsets;
-}
+};
+
+// Helper function to determine active section based on scroll position
+export const getActiveSectionId = (offsets: { [key: string]: number }, scrollY: number) => {
+  let activeSection = 'home';
+  
+  Object.entries(offsets).forEach(([id, offset]) => {
+    if (scrollY >= offset - 100) { // 100px offset for better UX
+      activeSection = id;
+    }
+  });
+  
+  return activeSection;
+};
 
 // Helper function to navigate to a section on the homepage
 export function scrollToSection(sectionId: string): void {

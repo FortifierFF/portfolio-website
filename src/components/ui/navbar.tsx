@@ -30,39 +30,18 @@ export function Navbar() {
       }
     };
 
-    // Initial call to set correct active section on mount
-    if (isHomePage) {
-      // Delay to ensure DOM elements are rendered
-      setTimeout(() => {
-        const sectionOffsets = getSectionOffsets();
-        const newActiveSection = getActiveSectionId(sectionOffsets, window.scrollY);
-        setActiveSection(newActiveSection);
-      }, 100);
-    }
-    
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, [isHomePage]);
 
-  // Common styles for nav links
-  const baseNavLinkStyles = "px-3 py-2 text-sm font-medium transition-colors";
-  const activeLinkStyles = "text-blue-400";
-  const inactiveLinkStyles = "text-gray-300 hover:text-white";
-  
-  // Generate links with proper paths
-  const navLinks = navSections.map(section => {
-    const href = section.id === 'home' 
-      ? '/' 
-      : isHomePage 
-        ? `#${section.id}` 
-        : `/#${section.id}`;
-        
-    return {
-      id: section.id,
-      href,
-      label: section.label
-    };
-  });
+  // Handle contact section scroll
+  const handleContactClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <nav
@@ -84,14 +63,29 @@ export function Navbar() {
           {/* Desktop Menu */}
           <div className="hidden md:block">
             <div className="ml-10 flex items-center space-x-8">
-              {navLinks.map((link) => (
-                <Link 
-                  key={link.id}
-                  href={link.href} 
-                  className={`${baseNavLinkStyles} ${activeSection === link.id ? activeLinkStyles : inactiveLinkStyles}`}
-                >
-                  {link.label}
-                </Link>
+              {navSections.map((section) => (
+                section.id === 'contact' ? (
+                  <a
+                    key={section.id}
+                    href={section.path}
+                    onClick={handleContactClick}
+                    className={`text-sm font-medium transition-colors hover:text-blue-500 ${
+                      activeSection === section.id ? 'text-blue-500' : 'text-gray-400'
+                    }`}
+                  >
+                    {section.label}
+                  </a>
+                ) : (
+                  <Link
+                    key={section.id}
+                    href={section.path}
+                    className={`text-sm font-medium transition-colors hover:text-blue-500 ${
+                      pathname === section.path ? 'text-blue-500' : 'text-gray-400'
+                    }`}
+                  >
+                    {section.label}
+                  </Link>
+                )
               ))}
               <a 
                 href="/resume.pdf" 
@@ -114,13 +108,11 @@ export function Navbar() {
               aria-expanded="false"
             >
               <span className="sr-only">Open main menu</span>
-              {/* Icon when menu is closed */}
               {!isMobileMenuOpen ? (
                 <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
               ) : (
-                /* Icon when menu is open */
                 <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
@@ -130,20 +122,34 @@ export function Navbar() {
         </div>
       </div>
 
-      {/* Mobile menu, show/hide based on menu state */}
+      {/* Mobile menu */}
       <div className={`md:hidden ${isMobileMenuOpen ? 'block' : 'hidden'}`} id="mobile-menu">
         <div className="px-2 pt-2 pb-3 space-y-1 bg-gray-900/95 backdrop-blur-md">
-          {navLinks.map((link) => (
-            <Link 
-              key={`mobile-${link.id}`}
-              href={link.href} 
-              className={`block px-3 py-2 rounded-md text-base font-medium ${
-                activeSection === link.id ? 'text-blue-400' : 'text-gray-300 hover:text-white'
-              }`}
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              {link.label}
-            </Link>
+          {navSections.map((section) => (
+            section.id === 'contact' ? (
+              <a
+                key={`mobile-${section.id}`}
+                href={section.path}
+                onClick={(e) => {
+                  handleContactClick(e);
+                  setIsMobileMenuOpen(false);
+                }}
+                className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white"
+              >
+                {section.label}
+              </a>
+            ) : (
+              <Link
+                key={`mobile-${section.id}`}
+                href={section.path}
+                className={`block px-3 py-2 rounded-md text-base font-medium ${
+                  pathname === section.path ? 'text-blue-400' : 'text-gray-300 hover:text-white'
+                }`}
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {section.label}
+              </Link>
+            )
           ))}
           <div className="px-3 py-2">
             <a 
