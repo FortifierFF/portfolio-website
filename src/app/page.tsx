@@ -4,6 +4,8 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { ProjectCard } from '@/components/project-card';
 import { GameCard } from '@/components/game-card';
+import { useToast } from '@/components/ui/toast';
+import { Github, Linkedin, FileCode, Copy } from 'lucide-react';
 
 // Project data
 const projects = [
@@ -12,21 +14,24 @@ const projects = [
     description: 'A responsive e-commerce platform with cart functionality, user authentication, and payment integration.',
     emoji: '🛒',
     tags: ['Next.js', 'TypeScript', 'Redux Toolkit', 'Tailwind CSS'],
-    link: '#'
+    link: '#',
+    isComingSoon: true
   },
   {
     title: 'Web3 DApp',
     description: 'Decentralized application connecting to blockchain networks with wallet integration and smart contract interactions.',
     emoji: '⛓️',
     tags: ['React', 'Ethereum', 'Web3.js', 'Solidity'],
-    link: '#'
+    link: '#',
+    isComingSoon: true
   },
   {
     title: 'Immersive Game Experience',
     description: 'An engaging 3D game built with Unreal Engine, featuring dynamic environments and interactive gameplay.',
     emoji: '🎮',
     tags: ['Unreal Engine', 'C++', 'Blueprint', '3D Design'],
-    link: '#'
+    link: '#',
+    isComingSoon: true
   }
 ];
 
@@ -35,27 +40,32 @@ const games = [
   {
     title: 'Memory Match',
     description: 'Test your memory by matching pairs of cards in this classic game.',
-    link: '/games/memory-match'
+    link: '/games/memory-match',
+    image: '/images/memory-match.jpg'
   },
   {
     title: '2048',
     description: 'Combine tiles to reach 2048 in this addictive puzzle game.',
-    link: '/games/2048'
+    link: '/games/2048',
+    image: '/images/2048.png'
   },
   {
     title: 'Color Guess',
     description: 'Test your knowledge of colors and RGB values in this challenging game.',
-    link: '/games/color-guess'
+    link: '/games/color-guess',
+    image: '/images/color-guess.webp'
   },
   {
     title: 'Math Challenge',
     description: 'Solve math problems against the clock to improve your mental math.',
-    link: '/games/math-challenge'
+    link: '/games/math-challenge',
+    image: '/images/math-challenge.webp'
   },
   {
     title: 'Word Puzzle',
     description: 'Rearrange letters to form words and test your vocabulary skills.',
-    link: '#word-puzzle'
+    link: '#',
+    isComingSoon: true
   }
 ];
 
@@ -87,7 +97,52 @@ const skillCategories = [
   }
 ];
 
+// Social links
+const socialLinks = [
+  {
+    name: 'GitHub',
+    url: 'https://github.com/FortifierFF',
+    icon: <Github />
+  },
+  {
+    name: 'LinkedIn',
+    url: 'https://www.linkedin.com/in/lyusien-nistorov-428a48253',
+    icon: <Linkedin />
+  },
+  {
+    name: 'Dev.to',
+    url: 'https://dev.to/fortifier',
+    icon: <FileCode />
+  },
+  {
+    name: 'Discord',
+    action: 'copy',
+    value: 'fortifier',
+    icon: <Copy />
+  }
+];
+
 export default function Home() {
+  const { showToast } = useToast();
+
+  const handleDiscordClick = () => {
+    navigator.clipboard.writeText('fortifier')
+      .then(() => {
+        showToast({
+          message: 'Discord username copied to clipboard!',
+          type: 'success',
+          duration: 3000
+        });
+      })
+      .catch(() => {
+        showToast({
+          message: 'Failed to copy Discord username',
+          type: 'error',
+          duration: 3000
+        });
+      });
+  };
+
   return (
     <main className="min-h-screen bg-gray-950 text-gray-100">
       {/* Hero Section */}
@@ -169,7 +224,7 @@ export default function Home() {
             </span>
           </h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 auto-rows-fr">
             {projects.map((project) => (
               <ProjectCard
                 key={project.title}
@@ -178,6 +233,7 @@ export default function Home() {
                 emoji={project.emoji}
                 tags={project.tags}
                 link={project.link}
+                isComingSoon={project.isComingSoon}
               />
             ))}
           </div>
@@ -203,6 +259,8 @@ export default function Home() {
                 title={game.title}
                 description={game.description}
                 link={game.link}
+                image={game.image}
+                isComingSoon={game.isComingSoon}
               />
             ))}
           </div>
@@ -265,10 +323,29 @@ export default function Home() {
       <footer className="bg-gray-900 text-gray-400 py-12 text-center">
         <div className="max-w-6xl mx-auto px-8">
           <div className="mb-8 flex justify-center gap-8">
-            <a href="#" className="hover:text-blue-500 transition-colors text-lg">GitHub</a>
-            <a href="#" className="hover:text-blue-500 transition-colors text-lg">LinkedIn</a>
-            <a href="#" className="hover:text-blue-500 transition-colors text-lg">Twitter</a>
-            <a href="#" className="hover:text-blue-500 transition-colors text-lg">Dev.to</a>
+            {socialLinks.map((link) => (
+              link.action === 'copy' ? (
+                <button 
+                  key={link.name}
+                  onClick={handleDiscordClick}
+                  className="flex items-center gap-2 hover:text-blue-500 transition-colors text-lg"
+                >
+                  {link.icon}
+                  <span>{link.name}</span>
+                </button>
+              ) : (
+                <a 
+                  key={link.name}
+                  href={link.url} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 hover:text-blue-500 transition-colors text-lg"
+                >
+                  {link.icon}
+                  <span>{link.name}</span>
+                </a>
+              )
+            ))}
           </div>
           <p>© {new Date().getFullYear()} Lyusien Nistorov. All rights reserved.</p>
           <p className="mt-4 text-sm text-gray-500">
