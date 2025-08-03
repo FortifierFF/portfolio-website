@@ -33,12 +33,12 @@ const games = [
   {
     title: 'Word Puzzle',
     description: 'Rearrange letters to form words and test your vocabulary skills.',
-    link: '#',
-    isComingSoon: true
+    link: '/games/word-puzzle',
+    image: '/images/wordPuzzle.jpg'
   }
 ];
 
-export default function MiniGamesPage() {
+const MiniGamesPage = () => {
   return (
     <main className="min-h-screen bg-gray-950 text-gray-100 py-20 px-8">
       <div className="max-w-6xl mx-auto">
@@ -66,7 +66,6 @@ export default function MiniGamesPage() {
               description={game.description}
               link={game.link}
               image={game.image}
-              isComingSoon={game.isComingSoon}
             />
           ))}
         </div>
@@ -77,4 +76,6 @@ export default function MiniGamesPage() {
       </div>
     </main>
   );
-} 
+};
+
+export default MiniGamesPage; 

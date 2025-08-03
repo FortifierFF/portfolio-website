@@ -13,7 +13,7 @@ interface GameCardProps {
 }
 
 // Generate a consistent color based on game title
-function generatePlaceholderColor(title: string) {
+const generatePlaceholderColor = (title: string) => {
   let hash = 0;
   for (let i = 0; i < title.length; i++) {
     hash = title.charCodeAt(i) + ((hash << 5) - hash);
@@ -21,9 +21,9 @@ function generatePlaceholderColor(title: string) {
   
   const hue = Math.abs(hash % 360);
   return `hsl(${hue}, 70%, 35%)`;
-}
+};
 
-export function GameCard({ title, description, link, image, isComingSoon = false }: GameCardProps) {
+export const GameCard = ({ title, description, link, image, isComingSoon = false }: GameCardProps) => {
   const [imageError, setImageError] = useState(false);
   const placeholderColor = generatePlaceholderColor(title);
   

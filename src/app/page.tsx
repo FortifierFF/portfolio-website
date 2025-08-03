@@ -64,8 +64,8 @@ const games = [
   {
     title: 'Word Puzzle',
     description: 'Rearrange letters to form words and test your vocabulary skills.',
-    link: '#',
-    isComingSoon: true
+    link: '/games/word-puzzle',
+    image: '/images/wordPuzzle.jpg'
   }
 ];
 
@@ -122,7 +122,7 @@ const socialLinks = [
   }
 ];
 
-export default function Home() {
+const Home = () => {
   const { showToast } = useToast();
 
   const handleDiscordClick = () => {
@@ -260,7 +260,6 @@ export default function Home() {
                 description={game.description}
                 link={game.link}
                 image={game.image}
-                isComingSoon={game.isComingSoon}
               />
             ))}
           </div>
@@ -373,4 +372,6 @@ export default function Home() {
       </footer>
     </main>
   );
-}
+};
+
+export default Home;
